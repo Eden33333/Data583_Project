@@ -7,7 +7,11 @@ output: pdf_document
 
 ## Introduction and Motivation
 
-------------------------------------------------------------------------
+Cardiovascular diseases (CVDs) are a group of disorders of the heart and blood vessels. Heart attacks and strokes are usually acute events and are mainly caused by a blockage that prevents blood from flowing to the heart or brain. The most common reason for this is a build-up of fatty deposits on the inner walls of the blood vessels that supply the heart or brain. Strokes can be caused by bleeding from a blood vessel in the brain or from blood clots.
+
+We analysed a dataset collected on patients with left ventricular systolic dysfunction in April-December 2015 at the Faisalabad Institute of Cardiology and at the Allied Hospital in Faisalabad (Punjab, Pakistan). The data is from patients that are over 40 years old. The data was collected by cardiac echo report or notes written by the physician. The data set providers changed the names of some of the features of the original data set which can introduce a bias in the report. An underlying scientific process that may affect the data is that high blood pressure was not reported and the type of the follow up is not reported as well. This can affect the data analysis because those two variables are crucial to understanding heart disease.
+
+With the analysis conducted on this data, we hope to answer some important scientific questions that will help in a better understanding, and the treatment of cardiovascular diseases.
 
 ## Data description
 
@@ -16,7 +20,7 @@ output: pdf_document
 This dataset includes the medical histories of 299 patients diagnosed with heart failure, with the target variable being 'death_event'. As the *table 1* shows each patient's profile consists of 13 clinical attributes, 5 categorical variables and 7 numerical variables.
 
 | variables                | Type       | description                                                   | values         |
-|---------------|---------------|-----------------------------|---------------|
+|----------------|----------------|-------------------------|----------------|
 | age                      | Integer    | age of the patient (years)                                    | [40,95]        |
 | anaemia                  | Binary     | decrease of red blood cells or hemoglobin                     | 0,1            |
 | creatinine_phosphokinase | Integer    | level of the CPK enzyme in the blood(mcg/L)                   | [23,7861]      |
@@ -37,19 +41,19 @@ This dataset includes the medical histories of 299 patients diagnosed with heart
 
 As Figure 1 shows below, our targeted variables `death_event` is unbalanced with 203 survival observations vs 96 dead observations.
 
-![ A pie chart depicting the distribution of survival and mortality rates, crucial target variables in our analysis. There are 203 survival observations and only 96 dead observations signifying imbalance in the data.](image/pie.png){width="321"}
+![A pie chart depicting the distribution of survival and mortality rates, crucial target variables in our analysis. There are 203 survival observations and only 96 dead observations signifying imbalance in the data.](image/pie.png){width="321"}
 
 1.2 Numerical variables
 
 As the Figure 2 shows, these variables exhibit different scales, indicating the need for standardization. Based on descriptive statistics, the variables do not appear to have significant differences between the deceased and surviving groups, except for **`time`**.
 
-![ Statistical quantitative description of the numeric features that shows the mean, median and standard deviation for each of the quantitative variables. The mean, median and standard deviation values are further grouped into 'Full sample', 'Dead patients' and 'Survived Patients' to give a description based on the target variable.](image/table.png)
+![Statistical quantitative description of the numeric features that shows the mean, median and standard deviation for each of the quantitative variables. The mean, median and standard deviation values are further grouped into 'Full sample', 'Dead patients' and 'Survived Patients' to give a description based on the target variable.](image/table.png)
 
 1.3 Categorical variables
 
 We visualize 5 categorical variables against the target variable "death_event." As Figure 3 shows below, the number of males is larger than females, and individuals with a history of 'anaemia,' 'high blood pressure,' 'diabetes,' and 'smoking' are more prevalent than those without such histories. These variables demonstrate bias. Therefore, we need to perform oversampling to preprocess our data.
 
-![ Heatmap of Categorical Variables (high_blood_pressure, smoking, anemia, diabetes, sex) that shows the trend of counts of records with the target variable death_event. Count of records can be seen for 'Death' and 'Survival' for each of the variables.](image/discrete.png){width="609" height="149"}
+![Heatmap of Categorical Variables (high_blood_pressure, smoking, anemia, diabetes, sex) that shows the trend of counts of records with the target variable death_event. Count of records can be seen for 'Death' and 'Survival' for each of the variables.](image/discrete.png){width="609" height="149"}
 
 2.  Data Preprocessing
 
@@ -81,17 +85,37 @@ SMOTE works by synthesizing new samples of the minority class to balance the dis
 
 As shown in Figure 4, even after oversampling, each category of response remains equal (203 occurrences each), yet the distribution of categorical variables remains uneven, except for the variable 'anaemia'
 
-![ Oversampling Heatmap of Categorical Variables (high_blood_pressure, smoking, anemia, diabetes, sex) depicting the counts of records with the target variable death_event. Counts of records can be observed for 'Death' and 'Survival' for each of the variables.](image/oversampling.png){width="609" height="149"}
+![Oversampling Heatmap of Categorical Variables (high_blood_pressure, smoking, anemia, diabetes, sex) depicting the counts of records with the target variable death_event. Counts of records can be observed for 'Death' and 'Survival' for each of the variables.](image/oversampling.png){width="609" height="149"}
 
-## Hypothesis
+## Scientific Hypotheses Discussion
 
-------------------------------------------------------------------------
+The medical dataset at hand contains valuable information and can help in answering some crucial questions, and understanding trends that provide useful insights about patient\'s health. It has great applications in a predictive landscape, and we will try to use the predictors and create models to make predictions.
+
+Using this dataset, we will start our analysis by understanding the different factors and how they influence our understanding of cardiovascular diseases. We will primarily focus on finding out what predictors are the most relevant in predicting patients\' death due to a heart attack. Then we will also attempt to predict whether the patient dies in the follow up period by leveraging predictive models and machine learning algorithms.
+
+This should hold numerous applications in the medical landscape. The scientific questions that we will attempt to answer using our analysis are discussed below:
+
+**1. Out of all the predictors available, which of them are significant in determining whether the patient dies within the follow up period?**
+
+-   Identifying the key clinical variables associated with the risk of death is crucial for understanding disease progression and tailoring treatment plans. It can guide clinicians in prioritizing interventions and monitoring strategies for at-risk patients.
+
+-   Heart failure is characterized by complex mechanisms and is affected differently by different clinical factors. Hence, having a better understanding of what predictors are significant would prove to be vital information to any physician.
+
+-   Having the answer to this question would have a great significance in the problem that we are trying to solve with this project.
+
+**2. Can we predict the likelihood of death during the follow-up period based on the patient\'s clinical attributes?**
+
+-   Heart failure is a condition that presents with various complications and clinical presentations. Predicting the likelihood of death due to heart failure during the follow-up period can prove to be crucial.
+
+-   This question is of great importance in clinical practice as it helps healthcare providers identify patients at higher risk of mortality, allowing for timely interventions and personalized treatment strategies.
+
+-   By identifying patients at higher risk of mortality, healthcare providers can implement targeted interventions and monitor the disease progression more closely. It will also have applications in adjusting the follow-up period of the patients accordingly.
 
 # Feature selection
 
 As shown in Figure 5, there exists some correlation between variables. We will conduct feature selection to identify the most important variables for model prediction.
 
-![ A correlation Matrix that shows the collinearity between the predictors and the reponse variable. A value close to -1 or 1 is indicative of high collinearity between predictors. A value close to 0 is indicative of low collinearity between predictors. The more saturated a box is relative to its color the higher the collinearity. The less saturated a box is relative to its color the lower the collinearity.](image/correlative%20matrix.png)
+![A correlation Matrix that shows the collinearity between the predictors and the reponse variable. A value close to -1 or 1 is indicative of high collinearity between predictors. A value close to 0 is indicative of low collinearity between predictors. The more saturated a box is relative to its color the higher the collinearity. The less saturated a box is relative to its color the lower the collinearity.](image/correlative%20matrix.png)
 
 1.  Z-test
 
