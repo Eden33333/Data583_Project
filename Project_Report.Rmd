@@ -15,12 +15,12 @@ With the analysis conducted on this data, we hope to answer some important scien
 
 ## Data description
 
-1.  Raw data
+### 1. Raw data
 
 This dataset includes the medical histories of 299 patients diagnosed with heart failure, with the target variable being 'death_event'. As the *table 1* shows each patient's profile consists of 13 clinical attributes, 5 categorical variables and 7 numerical variables.
 
 | variables                | Type       | description                                                   | values         |
-|----------------|----------------|-------------------------|----------------|
+|-----------------|-----------------|-----------------------|-----------------|
 | age                      | Integer    | age of the patient (years)                                    | [40,95]        |
 | anaemia                  | Binary     | decrease of red blood cells or hemoglobin                     | 0,1            |
 | creatinine_phosphokinase | Integer    | level of the CPK enzyme in the blood(mcg/L)                   | [23,7861]      |
@@ -55,7 +55,7 @@ We visualize 5 categorical variables against the target variable "death_event." 
 
 ![Heatmap of Categorical Variables (high_blood_pressure, smoking, anemia, diabetes, sex) that shows the trend of counts of records with the target variable death_event. Count of records can be seen for 'Death' and 'Survival' for each of the variables.](image/discrete.png){width="609" height="149"}
 
-2.  Data Preprocessing
+### 2. Data Preprocessing
 
 [**2.1 Standardization**]{.underline}
 
@@ -89,9 +89,9 @@ As shown in Figure 4, even after oversampling, each category of response remains
 
 ## Scientific Hypotheses Discussion
 
-The medical dataset at hand contains valuable information and can help in answering some crucial questions, and understanding trends that provide useful insights about patient\'s health. It has great applications in a predictive landscape, and we will try to use the predictors and create models to make predictions.
+The medical dataset at hand contains valuable information and can help in answering some crucial questions, and understanding trends that provide useful insights about patient's health. It has great applications in a predictive landscape, and we will try to use the predictors and create models to make predictions.
 
-Using this dataset, we will start our analysis by understanding the different factors and how they influence our understanding of cardiovascular diseases. We will primarily focus on finding out what predictors are the most relevant in predicting patients\' death due to a heart attack. Then we will also attempt to predict whether the patient dies in the follow up period by leveraging predictive models and machine learning algorithms.
+Using this dataset, we will start our analysis by understanding the different factors and how they influence our understanding of cardiovascular diseases. We will primarily focus on finding out what predictors are the most relevant in predicting patients' death due to a heart attack. Then we will also attempt to predict whether the patient dies in the follow up period by leveraging predictive models and machine learning algorithms.
 
 This should hold numerous applications in the medical landscape. The scientific questions that we will attempt to answer using our analysis are discussed below:
 
@@ -103,7 +103,7 @@ This should hold numerous applications in the medical landscape. The scientific 
 
 -   Having the answer to this question would have a great significance in the problem that we are trying to solve with this project.
 
-**2. Can we predict the likelihood of death during the follow-up period based on the patient\'s clinical attributes?**
+**2. Can we predict the likelihood of death during the follow-up period based on the patient's clinical attributes?**
 
 -   Heart failure is a condition that presents with various complications and clinical presentations. Predicting the likelihood of death due to heart failure during the follow-up period can prove to be crucial.
 
@@ -117,7 +117,7 @@ As shown in Figure 5, there exists some correlation between variables. We will c
 
 ![A correlation Matrix that shows the collinearity between the predictors and the reponse variable. A value close to -1 or 1 is indicative of high collinearity between predictors. A value close to 0 is indicative of low collinearity between predictors. The more saturated a box is relative to its color the higher the collinearity. The less saturated a box is relative to its color the lower the collinearity.](image/correlative%20matrix.png)
 
-1.  Z-test
+### 1. Z-test
 
 A Z-test is a statistical method used to assess whether there's a significant difference between the means of the populations under consideration. By formulating the null hypothesis (`H0`) suggests that the population means are equal. Next, the test statistic (`Z`) is calculated using the formula:
 
@@ -126,6 +126,28 @@ $$ Z = \frac{{\bar{X}_1 - \bar{X}_2}}{{\sqrt{\frac{{\sigma_1^2}}{{n_1}} + \frac{
 Here, $\bar{X}_1$ and $\bar{X}_2$ represent the sample means of the two populations, while $\sigma_1$ and $\sigma_2$ denote the known population standard deviations. $n_1$ and $n_2$ are the sample sizes for the respective populations.
 
 As we can see on the table 3, variable `time` has significant high z-score and `ejection_fraction`, `age` and `serum_creatinine` are the following important variables
+
+### 2. LASSO
+
+LASSO (Least Absolute Shrinkage and Selection Operator) is a statistical formula whose main purpose is the feature selection and regularization of data models. In statistical learning space, a linear model is built by adding coefficients to each predictor. The LASSO method shrinks those regression coefficients, reducing some of them to zero. The feature selection phase occurs after the shrinkage, where every non-zero value is selected to be used in the model.
+
+The features selection phase helps in the selection of explanatory variables, which are the input variables in the model. The input variables are important because they are elements that determine the model\'s output.
+
+To answer this scientific question, we need to find out what predictors, or input variables from our data are important in determining the output variable. The LASSO technique can help in answering this question. The results of the LASSO model are showed in the figure below:
+
+![](image/LASSO-1.png)
+
+The LASSO model suggests these features to be important : `age`, `ejection_fraction`, `serum_sodium` and `time`.
+
+### 3. Decision Trees
+
+Decision trees is another method that can be used for classification problems. For this process, we create a model that predicts the value of the target variable by simple decision rules from the input data / features. At each step, there is a decision involved and then you follow consecutive decisions until you reach a value for the target variable.
+
+Decision trees are fairly easy to interpret. The process of classification using decision trees feels very intuitive and is very easy to understand by simply looking at the tree structure. The deeper the tree, the more complex the decision rules and the fitter the model.
+
+We can use this process to answer the first scientific question about which features are important as well. The input variables / features that are used the most in making these decisions in the trees are considered as most significant in determining the target variable. In this way, decision trees can help us in feature selection. The results for feature importance from the decision tree can be seen from the plot below:
+
+![](image/DT-1.png)
 
 # Model
 
