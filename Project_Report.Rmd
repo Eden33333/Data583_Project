@@ -20,7 +20,7 @@ With the analysis conducted on this data, we hope to answer some important scien
 This dataset includes the medical histories of 299 patients diagnosed with heart failure, with the target variable being 'death_event'. As the *table 1* shows each patient's profile consists of 13 clinical attributes, 5 categorical variables and 7 numerical variables.
 
 | variables                | Type       | description                                                   | values         |
-|-----------------|-----------------|-----------------------|-----------------|
+|------------------|------------------|--------------------|------------------|
 | age                      | Integer    | age of the patient (years)                                    | [40,95]        |
 | anaemia                  | Binary     | decrease of red blood cells or hemoglobin                     | 0,1            |
 | creatinine_phosphokinase | Integer    | level of the CPK enzyme in the blood(mcg/L)                   | [23,7861]      |
@@ -131,7 +131,7 @@ As we can see on the table 3, variable `time` has significant high z-score and `
 
 LASSO (Least Absolute Shrinkage and Selection Operator) is a statistical formula whose main purpose is the feature selection and regularization of data models. In statistical learning space, a linear model is built by adding coefficients to each predictor. The LASSO method shrinks those regression coefficients, reducing some of them to zero. The feature selection phase occurs after the shrinkage, where every non-zero value is selected to be used in the model.
 
-The features selection phase helps in the selection of explanatory variables, which are the input variables in the model. The input variables are important because they are elements that determine the model\'s output.
+The features selection phase helps in the selection of explanatory variables, which are the input variables in the model. The input variables are important because they are elements that determine the model's output.
 
 To answer this scientific question, we need to find out what predictors, or input variables from our data are important in determining the output variable. The LASSO technique can help in answering this question. The results of the LASSO model are showed in the figure below:
 
@@ -153,6 +153,20 @@ We can use this process to answer the first scientific question about which feat
 
 Extreme Gradient Boosting (XGBoost) is an ensemble learning method that employs gradient boosting to train decision trees sequentially. The optimal parameters obtained through grid search are ('colsample_bytree': 0.6, 'learning_rate': 0.1, 'max_depth': 3, 'n_estimators': 150, 'subsample': 0.8)
 
+![A confusion matrix displaying the accuracy of the boosting model. The true label refers to the actual class of the data point being evaluated. The predicted label refers to the class that the model assigns to a particular data point based on its features. 0 refers to patient survival and 1 refers to patient death. The model correctly identified 46 true negatives (survival) and 33 true positives (deaths). The model has 2 false positives (misidentified 2 deaths as survival) and 1 false negative (misidentified 1 survival as a death). The color of the squares represent the rate of the classification in each category. A higher rate will be closer to a yellow color and a lower rate will be closer to dark purple color.](image/GB%20CM.png)
+
 Generalized Additive Models (GAMs) are a class of generalized linear models that allow for flexible modeling of non-linear relationships. The model utilized B-spline basis functions with the number of degrees of freedom (df) and degrees of the spline set to [3, 3, 4, 4, 4, 3, 4] and [2, 2, 3, 3, 3, 2, 3], respectively, allowing for the capture of non-linear relationships between the predictors ['age', 'creatinine_phosphokinase', 'ejection_fraction', 'platelets', 'serum_creatinine', 'serum_sodium', 'time'] and the response variable.
 
+A Random Forest is a common strategy to improve CART predictions and stability. Classification Trees have high variability, in this random forest model we are fitting 100 trees then get the average prediction. The issue with this model is that roughly 1/3 of the observations will not appear while others are duplicated. These observations are called out of bag. We can report error using the observed data only through models fit with the observation was OOB.
+
+![A confusion matrix displaying the accuracy of the random forest model. The true label refers to the actual class of the data point being evaluated. The predicted label refers to the class that the model assigns to a particular data point based on its features. 0 refers to patient survival and 1 refers to patient death. The model correctly identified 46 true negatives (survival) and 33 true positives (deaths). The model has 2 false positives (misidentified 2 deaths as survival) and 1 false negative (misidentified 1 survival as a death). The color of the squares represent the rate of the classification in each category. A higher rate will be closer to a yellow color and a lower rate will be closer to dark purple color.](image/GB%20CM.png){alt="A confusion matrix displaying the accuracy of the boosting model. The model correctly identified 46 true negatives (survival) and 33 true positives (deaths). The model has 2 false positives (misidentified 2 deaths as survival) and 1 false negative (misidentified 1 survival as a death). The color of the squares represent the rate of the classification in each category. A higher rate will be closer to a yellow color and a lower rate will be closer to dark purple color."}
+
 # Result
+
+| Model               | Accuracy | F1 Score | Precision | log loss |
+|---------------------|----------|----------|-----------|----------|
+| Random Forest       | 96.3%    | 0.97     | 0.96      | 0.192    |
+| Boosting            | 96.3%    | 0.97     | 0.96      | 0.209    |
+| Logistic Regression | 82.9%    | 0.84     | 0.88      | 0.427    |
+
+: This table represents the performance of the models. It showcases the accuracy of the model which is the rate of accurate predictions. Precision measures the accuracy of positive predictions. It is the ratio of true positive predictions to the total number of positive predictions made by the model. Recall, also known as sensitivity or true positive rate, measures the ability of the model to correctly identify positive instances. It is the ratio of true positive predictions to the total number of actual positive instances in the data. F1 score is the harmonic mean of precision and recall and provides a balance between these two metrics. The F1 score and precision reach their best value at 1 (perfect precision and recall) and worst at 0. Log Loss is a measure used to evaluate the performance of a classification model that outputs probabilities. It measures the performance of a classification model where the prediction output is a probability value between 0 and 1. A lower log loss indicates better performance, with log loss approaching 0 for perfect predictions.
