@@ -1,4 +1,4 @@
-# Data583_Project
+# Cardiovascular Diseases Classification
 
 
 ## Instroduce about dataset
