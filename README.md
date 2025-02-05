@@ -25,26 +25,36 @@ This dataset includes the medical histories of 299 patients diagnosed with heart
 
 ### statistically descriptive analysis
 
-Target:　As the pie plot shows below, our targeted variables `death_event` is unbalance with 203 survival observations vs 96 dead observation.
+Target: As the pie plot shows below, our targeted variable `death_event` is unbalanced with 203 survival observations vs 96 dead observations.
 
-![](pie.png)
+<p align="center">
+  <img src="image/pie.png" alt="Pie Chart showing death_event distribution" />
+</p>
 
 #### Quantitative Variables
 
-We visualize 7 quantitative variables with histograms and fit each distribution of them, except for 'time,' which has two peaks. The upper four plots comply with the gamma distribution, and the lower ones follow the normal distribution
+We visualize 7 quantitative variables with histograms and fit each distribution of them, except for 'time,' which has two peaks. The upper four plots comply with the gamma distribution, and the lower ones follow the normal distribution.
 
-![Figure1 Quantitative Variables](quantitative%20distribution.png)
+<p align="center">
+  <img src="image/quantitative%20distribution.png" alt="Figure1: Quantitative Variables" />
+</p>
 
 As shown in the table below, these variables exhibit different scales, indicating the need for standardization. Based on descriptive statistics, the variables do not appear to have significant differences between the deceased and surviving groups, except for **`time`**.
 
-![Table1: Statistical quantitative description of the numeric features](table.png)
+<p align="center">
+  <img src="image/table.png" alt="Table1: Statistical quantitative description of the numeric features" />
+</p>
 
 Combined with the correlation matrix, we can also observe a stronger relationship between the follow-up time and the target variable.
 
-![Figure2 Correlation Matrix](correlative%20matrix.png)
+<p align="center">
+  <img src="image/correlative%20matrix.png" alt="Figure2: Correlation Matrix" />
+</p>
 
 #### Categorical Variables
 
 We visualize 5 categorical variables against the target variable "death_event." As the plots indicate, in our dataset, the number of males is larger than females, and individuals with a history of 'anaemia,' 'high blood pressure,' 'diabetes,' and 'smoking' are more prevalent than those without such histories. These variables demonstrate bias. Therefore, we need to perform oversampling to preprocess our data.
 
-![Figure3 Categorical Variables](discrete.png)
+<p align="center">
+  <img src="image/discrete.png" alt="Figure3: Categorical Variables" />
+</p>
